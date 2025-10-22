@@ -1,0 +1,32 @@
+# Python / Django
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.so
+*.egg-info/
+.dist/
+build/
+.env
+.venv/
+venv/
+ENV/
+env/
+
+# IDE
+.vscode/
+.idea/
+*.code-workspace
+
+# Django
+db.sqlite3
+productionfiles/
+media/
+staticfiles/*
+
+# Keep the static folder itself
+!staticfiles/.gitkeep
+
+# OS
+.DS_Store
+Thumbs.db
