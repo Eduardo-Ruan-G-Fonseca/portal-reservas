@@ -1,0 +1,73 @@
+{% extends "reservas/base.html" %} {% block title %}Cadastro · Portal de
+Reservas{% endblock %} {% block content %}
+<h1>Criar conta</h1>
+
+{% if form.errors %}
+<div class="alert alert-danger">
+  Corrija os campos abaixo e tente novamente. {% if form.non_field_errors %}
+  <div class="mt-2">
+    {% for err in form.non_field_errors %}
+    <div>{{ err }}</div>
+    {% endfor %}
+  </div>
+  {% endif %}
+</div>
+{% endif %}
+
+<form method="post" class="row g-3">
+  {% csrf_token %}
+
+  <div class="col-md-6">
+    <label class="form-label">Nome</label>
+    {{ form.nome }} {% for err in form.nome.errors %}
+    <div class="invalid-feedback d-block">{{ err }}</div>
+    {% endfor %}
+  </div>
+
+  <div class="col-md-6">
+    <label class="form-label">Email</label>
+    {{ form.email }} {% for err in form.email.errors %}
+    <div class="invalid-feedback d-block">{{ err }}</div>
+    {% endfor %}
+  </div>
+
+  <div class="col-md-4">
+    <label class="form-label">CPF</label>
+    {{ form.cpf }} {% for err in form.cpf.errors %}
+    <div class="invalid-feedback d-block">{{ err }}</div>
+    {% endfor %}
+  </div>
+
+  <div class="col-md-4">
+    <label class="form-label">Data de nascimento</label>
+    {{ form.data_nascimento }} {% for err in form.data_nascimento.errors %}
+    <div class="invalid-feedback d-block">{{ err }}</div>
+    {% endfor %}
+  </div>
+
+  <div class="col-md-4">
+    <label class="form-label">Senha</label>
+    {{ form.password1 }} {% for err in form.password1.errors %}
+    <div class="invalid-feedback d-block">{{ err }}</div>
+    {% endfor %}
+  </div>
+
+  <div class="col-md-4">
+    <label class="form-label">Confirmar senha</label>
+    {{ form.password2 }} {% for err in form.password2.errors %}
+    <div class="invalid-feedback d-block">{{ err }}</div>
+    {% endfor %}
+  </div>
+
+  <div class="col-12">
+    <button class="btn btn-primary">Cadastrar</button>
+  </div>
+</form>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    for (const el of document.querySelectorAll("input"))
+      el.classList.add("form-control");
+  });
+</script>
+{% endblock %}

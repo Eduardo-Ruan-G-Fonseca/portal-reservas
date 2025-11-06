@@ -1,0 +1,33 @@
+{% extends "reservas/base.html" %}
+{% block title %}Minhas reservas · Portal de Reservas{% endblock %}
+{% block content %}
+  <h1>Minhas reservas</h1>
+  {% if reservas %}
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>Localizador</th>
+          <th>Voo</th>
+          <th>Rota</th>
+          <th>Partida</th>
+          <th>Assento</th>
+          <th>Status</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for r in reservas %}
+          <tr>
+            <td><strong>{{ r.localizador }}</strong></td>
+            <td>{{ r.assento.voo.numero }} · {{ r.assento.voo.companhia.nome }}</td>
+            <td>{{ r.assento.voo.origem.codigo_iata }} → {{ r.assento.voo.destino.codigo_iata }}</td>
+            <td>{{ r.assento.voo.partida|date:"d/m/Y H:i" }}</td>
+            <td>{{ r.assento.codigo }} ({{ r.assento.get_classe_display }})</td>
+            <td>{{ r.get_status_display }}</td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  {% else %}
+    <p>Você ainda não possui reservas.</p>
+  {% endif %}
+{% endblock %}

@@ -1,0 +1,30 @@
+{% extends "reservas/base.html" %} {% block title %}Buscar voos · Portal de
+Reservas{% endblock %} {% block content %}
+<h1>Buscar voos</h1>
+<form method="get" class="row g-3">
+  <div class="col-md-4">
+    <label class="form-label">Origem</label>
+    {{ form.origem }}
+  </div>
+  <div class="col-md-4">
+    <label class="form-label">Destino</label>
+    {{ form.destino }}
+  </div>
+  <div class="col-md-3">
+    <label class="form-label">Data</label>
+    {{ form.data }}
+  </div>
+  <div class="col-md-1 d-flex align-items-end">
+    <button class="btn btn-primary w-100">Buscar</button>
+  </div>
+</form>
+
+<script>
+  // Helper to add Bootstrap classes to selects/inputs if not using crispy-forms
+  document.addEventListener("DOMContentLoaded", function () {
+    for (const el of document.querySelectorAll("select, input")) {
+      el.classList.add("form-control");
+    }
+  });
+</script>
+{% endblock %}

@@ -1,0 +1,39 @@
+{% extends "reservas/base.html" %}
+{% block title %}Voos encontrados · Portal de Reservas{% endblock %}
+{% block content %}
+<h1>Voos</h1>
+<form method="get" class="row g-3 mb-3">
+  <div class="col-md-4">
+    <label class="form-label">Origem</label>
+    {{ form.origem }}
+  </div>
+  <div class="col-md-4">
+    <label class="form-label">Destino</label>
+    {{ form.destino }}
+  </div>
+  <div class="col-md-3">
+    <label class="form-label">Data</label>
+    {{ form.data }}
+  </div>
+  <div class="col-md-1 d-flex align-items-end">
+    <button class="btn btn-secondary w-100">Filtrar</button>
+  </div>
+</form>
+
+{% if voos %}
+  <div class="list-group">
+    {% for v in voos %}
+      <a class="list-group-item list-group-item-action" href="{% url 'reservas:voo_detail' v.id %}">
+        <div class="d-flex w-100 justify-content-between">
+          <h5 class="mb-1">{{ v.numero }} · {{ v.companhia.nome }}</h5>
+          <small>{{ v.partida|date:"d/m H:i" }} → {{ v.chegada|date:"H:i" }}</small>
+        </div>
+        <p class="mb-1">{{ v.origem.codigo_iata }} → {{ v.destino.codigo_iata }} · {{ v.get_status_display }}</p>
+        <small>Preço base: R$ {{ v.preco_base }}</small>
+      </a>
+    {% endfor %}
+  </div>
+{% else %}
+  <p>Nenhum voo encontrado para os filtros informados.</p>
+{% endif %}
+{% endblock %}

@@ -1,0 +1,27 @@
+{% extends "reservas/base.html" %}
+{% block title %}Escolher assento · Portal de Reservas{% endblock %}
+{% block content %}
+  <h1>{{ voo.numero }} · {{ voo.companhia.nome }}</h1>
+  <p><strong>{{ voo.origem.codigo_iata }}</strong> → <strong>{{ voo.destino.codigo_iata }}</strong> · {{ voo.partida|date:"d/m/Y H:i" }} – {{ voo.chegada|date:"H:i" }}</p>
+  <p>Status: {{ voo.get_status_display }} · Preço base: R$ {{ voo.preco_base }}</p>
+
+  <h4>Assentos disponíveis</h4>
+  {% if assentos %}
+    <div>
+      {% for a in assentos %}
+        <form method="post" action="{% url 'reservas:reservar_assento' a.id %}" style="display:inline-block; margin: .25rem 0;">
+          {% csrf_token %}
+          <button class="seat btn btn-outline-primary" title="{{ a.get_classe_display }}">
+            {{ a.codigo }}
+          </button>
+        </form>
+      {% endfor %}
+    </div>
+  {% else %}
+    <p>Não há assentos disponíveis neste voo.</p>
+  {% endif %}
+
+  {% if not user.is_authenticated %}
+    <p class="mt-3">Para reservar, <a href="{% url 'reservas:login' %}?next={{ request.path }}">faça login</a> ou <a href="{% url 'reservas:signup' %}?next={{ request.path }}">cadastre-se</a>.</p>
+  {% endif %}
+{% endblock %}
